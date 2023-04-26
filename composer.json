@@ -1,0 +1,21 @@
+{
+    "name": "maximerenou/hugging-chat",
+    "description": "HuggingChat client",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "MaximeRenou\\HuggingChat\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Maxime Renou",
+            "email": "contact@maximerenou.fr"
+        }
+    ],
+    "require": {
+        "php": ">=7.1",
+        "ext-curl": "*",
+        "eislambey/eventsource": "^0.1.0"
+    }
+}
