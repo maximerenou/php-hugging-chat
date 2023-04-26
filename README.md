@@ -12,9 +12,13 @@ This is an unofficial Composer package for using **HuggingChat** (OpenAssistant'
 
     composer require maximerenou/hugging-chat
 
-## Usage
+## Demo
 
-**Demo**: run `examples/chat.php` to test it.
+Run `examples/chat.php` to test it.
+
+![Prompt Demo](examples/demo.gif)
+
+## Usage
 
 ```php
 use MaximeRenou\HuggingChat\Client as HuggingChat;
