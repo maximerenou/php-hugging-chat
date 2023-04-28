@@ -136,7 +136,7 @@ class Conversation
         return $this->current_text;
     }
 
-    public function handlePacket($raw)
+    protected function handlePacket($raw)
     {
         $data = json_decode($raw, true);
 
@@ -164,5 +164,24 @@ class Conversation
             'text' => $text,
             'final' => $data['token']['special']
         ];
+    }
+
+    public function getSummary()
+    {
+        $headers = [
+            'method: POST',
+            'accept: application/json',
+            "referer: https://huggingface.co/chat",
+            'content-type: application/json',
+            "cookie: hf-chat={$this->cookie}"
+        ];
+
+        $data = Tools::request("https://huggingface.co/chat/conversation/{$this->id}/summarize", $headers, '', false);
+        $data = json_decode($data, true);
+
+        if (! is_array($data) || empty($data['title']))
+            throw new \Exception("Failed to get conversation's summary");
+
+        return trim($data['title'], '"');
     }
 }

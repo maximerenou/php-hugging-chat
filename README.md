@@ -6,7 +6,7 @@
 [![PHP version](https://img.shields.io/packagist/dependency-v/maximerenou/hugging-chat/php)](https://packagist.org/packages/maximerenou/hugging-chat)
 [![cURL extension required](https://img.shields.io/packagist/dependency-v/maximerenou/hugging-chat/ext-curl)](https://packagist.org/packages/maximerenou/hugging-chat)
 
-This is an unofficial Composer package for using **HuggingChat** (OpenAssistant's LLaMA model).
+This is an unofficial PHP client for **HuggingChat** (OpenAssistant's LLaMA model).
 
 ## Installation
 
@@ -59,6 +59,20 @@ $identifiers = $conversation->getIdentifiers();
 // ...
 // Resume conversation with $identifiers parameter
 $conversation = $ai->resumeChatConversation($identifiers);
+```
+
+</details> 
+
+<details>
+  <summary>Generate a conversation's summary</summary>
+
+Useful to give a title to a conversation.
+
+```php
+// Question asked: "Who's Einstein?"
+// ...
+$summary = $conversation->getSummary();
+// Result: Famous genius mathematician.
 ```
 
 </details> 
