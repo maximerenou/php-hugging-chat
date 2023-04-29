@@ -184,4 +184,17 @@ class Conversation
 
         return trim($data['title'], '"');
     }
+
+    public function stopGenerating()
+    {
+        $headers = [
+            'method: POST',
+            'accept: */*',
+            "referer: https://huggingface.co/chat/conversation/{$this->id}",
+            'content-type: application/json',
+            "cookie: hf-chat={$this->cookie}"
+        ];
+
+        $data = Tools::request("https://huggingface.co/chat/conversation/{$this->id}/stop-generating", $headers, '', true);
+    }
 }
