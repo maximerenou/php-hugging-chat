@@ -76,7 +76,21 @@ $summary = $conversation->getSummary();
 // Result: Famous genius mathematician.
 ```
 
-</details> 
+</details>
+
+<details>
+  <summary>Stop answer generation</summary>
+
+If HuggingChat is taking too much time to answer or starts writing too much, you can stop generation in a parallel process/request using this method:
+
+```php
+// See "Resume a conversation"
+$conversation = $ai->resumeChatConversation($identifiers);
+
+$conversation->stopGenerating();
+```
+
+</details>
 
 <details>
   <summary>Handle HuggingChat errors</summary>
