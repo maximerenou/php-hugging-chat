@@ -2,6 +2,7 @@
 
 # HuggingChat client
 
+[![License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://opensource.org/licenses/MIT)
 [![Latest Stable Version](https://img.shields.io/github/v/release/maximerenou/php-hugging-chat)](https://packagist.org/packages/maximerenou/hugging-chat)
 [![PHP version](https://img.shields.io/packagist/dependency-v/maximerenou/hugging-chat/php)](https://packagist.org/packages/maximerenou/hugging-chat)
 [![cURL extension required](https://img.shields.io/packagist/dependency-v/maximerenou/hugging-chat/ext-curl)](https://packagist.org/packages/maximerenou/hugging-chat)
