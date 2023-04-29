@@ -22,7 +22,7 @@ while (true) {
     echo "-";
 
     try {
-        $full_answer = $conversation->ask($prompt, function ($answer, $tokens) use (&$padding) {
+        $full_answer = $conversation->ask($prompt, function ($answer, $tokens) {
             echo $tokens;
         });
     }
