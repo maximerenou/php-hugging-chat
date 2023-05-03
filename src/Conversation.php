@@ -86,7 +86,7 @@ class Conversation
                 'top_k' => $message->top_k,
                 'top_p' => $message->top_p,
                 'truncate' => $message->truncate,
-                'watermark' => $message->watermark, 
+                'watermark' => $message->watermark,
             ],
             'stream' => true
         ];
@@ -102,7 +102,7 @@ class Conversation
             CURLOPT_POST => 1,
             CURLOPT_POSTFIELDS => json_encode($data)
         ]);
-        
+
         $es->onMessage(function (Event $event) use ($es, &$callback) {
             if ($es === 4) {
                 $es->abort();
@@ -130,7 +130,7 @@ class Conversation
 
             $callback($this->current_text, $tokens);
         });
-        
+
         @$es->connect();
 
         return $this->current_text;
@@ -155,7 +155,7 @@ class Conversation
         }
 
         $text = $data['token']['special'] ? $data['generated_text'] : $data['token']['text'];
-        
+
         if (($pos = strpos($text, self::END_CHAR)) !== false) {
             $text = substr($text, 0, $pos);
         }
@@ -183,5 +183,37 @@ class Conversation
             throw new \Exception("Failed to get conversation's summary");
 
         return trim($data['title'], '"');
+    }
+
+    public function enableSharing()
+    {
+        return $this->withSettings([
+            'shareConversationsWithModelAuthors' => true
+        ]);
+    }
+
+    public function disableSharing()
+    {
+        return $this->withSettings([
+            'shareConversationsWithModelAuthors' => false
+        ]);
+    }
+
+    public function withSettings($settings)
+    {
+        $headers = [
+            'method: PATCH',
+            'accept: application/json',
+            "origin: https://huggingface.co",
+            "referer: https://huggingface.co/chat/privacy",
+            'content-type: application/json',
+            "cookie: hf-chat={$this->cookie}"
+        ];
+
+        $data = json_encode($settings);
+
+        Tools::request("https://huggingface.co/chat/settings", $headers, $data);
+
+        return $this;
     }
 }

@@ -79,6 +79,19 @@ $summary = $conversation->getSummary();
 </details> 
 
 <details>
+  <summary>Turn off data sharing</summary>
+
+HuggingChat share your conversations to improve the model. You can turn on/off data sharing:
+
+```php
+$conversation->enableSharing(); // on (default)
+
+$conversation->disableSharing(); // off
+```
+
+</details>
+
+<details>
   <summary>Handle HuggingChat errors</summary>
 
 The code throws exceptions when it receives an error from HuggingChat. You can therefore use a try/catch block to handle errors.
