@@ -216,4 +216,17 @@ class Conversation
 
         return $this;
     }
+
+    public function delete()
+    {
+        $headers = [
+            'method: DELETE',
+            'accept: application/json',
+            "referer: https://huggingface.co/chat",
+            'content-type: application/json',
+            "cookie: hf-chat={$this->cookie}"
+        ];
+
+        Tools::request("https://huggingface.co/chat/conversation/{$this->id}", $headers, '');
+    }
 }

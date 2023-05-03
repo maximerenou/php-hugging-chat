@@ -92,6 +92,15 @@ $conversation->disableSharing(); // off
 </details>
 
 <details>
+  <summary>Delete a conversation</summary>
+
+```php
+$conversation->delete();
+```
+
+</details>
+
+<details>
   <summary>Handle HuggingChat errors</summary>
 
 The code throws exceptions when it receives an error from HuggingChat. You can therefore use a try/catch block to handle errors.

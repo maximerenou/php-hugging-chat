@@ -31,4 +31,6 @@ while (true) {
     }
 }
 
+$conversation->delete();
+
 exit(0);
