@@ -128,7 +128,9 @@ class Conversation
                 $this->current_text = substr($this->current_text, 0, $pos);
             }
 
-            $callback($this->current_text, $tokens);
+            if (! is_null($callback)) {
+                $callback($this->current_text, $tokens);
+            }
         });
 
         @$es->connect();
