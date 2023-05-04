@@ -65,6 +65,19 @@ $conversation = $ai->resumeChatConversation($identifiers);
 </details> 
 
 <details>
+  <summary>Use another model</summary>
+
+You can use a specific model:
+
+```php
+$conversation = $ai->createConversation("bigcode/starcoder");
+```
+
+Default is OpenAssistant.
+
+</details> 
+
+<details>
   <summary>Generate a conversation's summary</summary>
 
 Useful to give a title to a conversation.
@@ -110,7 +123,7 @@ The code throws exceptions when it receives an error from HuggingChat. You can t
 <details>
   <summary>Answers are sometimes malformed (or dumb)</summary>
 
-That's what OpenAssistant's LLaMA model used by HuggingChat generates...
+Answers quality depends on the model you're using.
 
 </details>
 

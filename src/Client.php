@@ -4,9 +4,9 @@ namespace MaximeRenou\HuggingChat;
 
 class Client
 {
-    public function createConversation($identifiers = null)
+    public function createConversation($model = null)
     {
-        return $this->resumeConversation($identifiers);
+        return new Conversation(null, $model);
     }
 
     public function resumeConversation($identifiers)

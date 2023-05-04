@@ -8,6 +8,7 @@ use EventSource\EventSource;
 class Conversation
 {
     const END_CHAR = '<|endoftext|>';
+    const DEFAULT_MODEL = 'OpenAssistant/oasst-sft-6-llama-30b-xor';
 
     // Conversation IDs
     public $id;
@@ -17,13 +18,17 @@ class Conversation
     protected $current_started;
     protected $current_text;
 
-    public function __construct($identifiers = null)
+    public function __construct($identifiers = null, $model = null)
     {
+        if (is_null($model)) {
+            $model = self::DEFAULT_MODEL;
+        }
+
         if (is_array($identifiers) && ! empty($identifiers['cookie']))
             $this->cookie = $identifiers['cookie'];
 
         if (! is_array($identifiers))
-            $identifiers = $this->initConversation();
+            $identifiers = $this->initConversation($model);
 
         $this->id = $identifiers['id'];
         $this->cookie = $identifiers['cookie'];
@@ -37,20 +42,26 @@ class Conversation
         ];
     }
 
-    public function initConversation()
+    public function initConversation($model)
     {
         $headers = [
             'method: POST',
-            'accept: application/json',
-            "referer: https://huggingface.co/chat",
+            'accept: */*',
+            'accept-language: en-US,en;q=0.9',
+            'accept-encoding: gzip, deflate, br',
+            "referer: https://huggingface.co/chat/",
+            "origin: https://huggingface.co",
             'content-type: application/json',
+            'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36',
         ];
 
         if (! empty($this->cookie)) {
             $headers[] = "cookie: hf-chat={$this->cookie}";
         }
 
-        list($data, $request, $url, $cookies) = Tools::request("https://huggingface.co/chat/conversation", $headers, '', true);
+        $data = json_encode(['model' => $model]);
+
+        list($data, $request, $url, $cookies) = Tools::request("https://huggingface.co/chat/conversation", $headers, $data, true);
         $data = json_decode($data, true);
 
         if (! empty($cookies['hf-chat'])) {
