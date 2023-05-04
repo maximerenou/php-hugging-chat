@@ -59,7 +59,7 @@ $identifiers = $conversation->getIdentifiers();
 
 // ...
 // Resume conversation with $identifiers parameter
-$conversation = $ai->resumeChatConversation($identifiers);
+$conversation = $ai->resumeConversation($identifiers);
 ```
 
 </details> 

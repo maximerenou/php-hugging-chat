@@ -114,11 +114,7 @@ class Conversation
             CURLOPT_POSTFIELDS => json_encode($data)
         ]);
 
-        $es->onMessage(function (Event $event) use ($es, &$callback) {
-            if ($es === 4) {
-                $es->abort();
-            }
-
+        $es->onMessage(function (Event $event) use (&$callback) {
             $message = $this->handlePacket($event->data);
 
             if ($message === false)
