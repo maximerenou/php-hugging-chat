@@ -9,6 +9,8 @@
 
 This is an unofficial PHP client for **HuggingChat** (OpenAssistant's LLaMA model).
 
+> HuggingChat API [is evolving fast](https://huggingface.co/spaces/huggingchat/chat-ui/commits/main) with recurring breaking changes. I try to keep up with it, but it may not always work as expected. Feel free to open an issue if you encounter any problem.
+
 ## Installation
 
     composer require maximerenou/hugging-chat
@@ -92,14 +94,14 @@ $summary = $conversation->getSummary();
 </details> 
 
 <details>
-  <summary>Turn off data sharing</summary>
+  <summary>Turn on/off data sharing</summary>
 
 HuggingChat share your conversations to improve the model. You can turn on/off data sharing:
 
 ```php
-$conversation->enableSharing(); // on (default)
+$conversation->enableSharing(); // on
 
-$conversation->disableSharing(); // off
+$conversation->disableSharing(); // off (module default)
 ```
 
 </details>

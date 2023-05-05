@@ -5,7 +5,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $ai = new \MaximeRenou\HuggingChat\Client();
 
-$conversation = $ai->createConversation()->disableSharing();
+$conversation = $ai->createConversation();
 
 echo 'Type "q" to quit' . PHP_EOL;
 

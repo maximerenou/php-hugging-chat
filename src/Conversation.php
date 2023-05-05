@@ -46,27 +46,42 @@ class Conversation
     {
         $headers = [
             'method: POST',
-            'accept: */*',
+            'accept: application/json',
             'accept-language: en-US,en;q=0.9',
             'accept-encoding: gzip, deflate, br',
             "referer: https://huggingface.co/chat/",
             "origin: https://huggingface.co",
-            'content-type: application/json',
             'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36',
         ];
 
         if (! empty($this->cookie)) {
             $headers[] = "cookie: hf-chat={$this->cookie}";
+        } else {
+            list($data, $request, $url, $cookies) = Tools::request("https://huggingface.co/chat", [], '', true);
+
+            if (! empty($cookies['hf-chat'])) {
+                $this->cookie = $cookies['hf-chat'];
+                $headers[] = "cookie: hf-chat={$this->cookie}";
+            }
+
+            // Ethics modal
+            $data = [
+                'ethicsModalAccepted' => true,
+                'ethicsModalAcceptedAt' => null,
+                'shareConversationsWithModelAuthors' => false,
+                'activeModel' => $model
+            ];
+
+            Tools::request("https://huggingface.co/chat/settings", array_merge($headers, [
+                'x-sveltekit-action: true',
+                'content-type: multipart/form-data'
+            ]), $data);
         }
 
+        // Init conversation
         $data = json_encode(['model' => $model]);
-
-        list($data, $request, $url, $cookies) = Tools::request("https://huggingface.co/chat/conversation", $headers, $data, true);
+        $data = Tools::request("https://huggingface.co/chat/conversation", array_merge($headers, ['content-type: application/json']), $data);
         $data = json_decode($data, true);
-
-        if (! empty($cookies['hf-chat'])) {
-            $this->cookie = $cookies['hf-chat'];
-        }
 
         if (! is_array($data) || empty($data['conversationId']))
             throw new \Exception("Failed to init conversation");
